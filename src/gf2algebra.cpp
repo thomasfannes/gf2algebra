@@ -1,76 +1,108 @@
 #include <iostream>
 #include "gf2algebra.hpp"
 
-// assignment operator
-Galois & Galois::operator=(const Galois & rhs) {
-	if (this != &rhs) {
-		Galois tmp(rhs);
-		swap(*this, tmp);
-	}
-	return *this;
-}
 
-// addition assignment
-Galois & Galois::operator+=(const Galois & rhs) {
-	_m ^= rhs._m;
-	return *this;
-}
+SparseGroupAlgebra add(const SparseGroupAlgebra & s1, const SparseGroupAlgebra & s2) {
+	std::vector<std::pair<int, Galois>> result;		// coefficients of the result of the additions
 
+	if(s1.isZero())	return s2;
+	if(s2.isZero())	return s1;
 
-// addition and multiplication
-Galois Galois::operator+(const Galois & rhs) const {
-	return Galois(_m ^ rhs._m);
-}
-Galois Galois::operator*(const Galois & rhs) const {
-	int t=0;
-	if(_m == 0 || rhs._m == 0)	return 0;
-	t = L[_m] + L[rhs._m];
-	if(t > GF_ORDER-1) t -= (GF_ORDER - 1);
-	return Galois(E[t]);
-}
-
-// equality
-bool Galois::operator==(const Galois & rhs) const {
-	return _m == rhs._m;
-}
-bool Galois::operator!=(const Galois & rhs) const {
-	return _m != rhs._m;
-}
-
-// information functions
-std::string Galois::polyRepresentation() const {
-	std::stringstream str;
-	bool first = true;
-	for (int i = N-1; i >= 0; i--) {
-		if (_m & (1 << i)) {
-			if (first)
-				first = false;
-			else
-				str << "+";
-			switch (i) {
-				case 0:
-					str << "1";
-					break;
-				case 1:
-					str << "x";
-					break;
-				default:
-					str << "x^" << i;
-					break;
+	// browse sorted vectors of coefficients of each element
+	for (std::pair<SparseGroupAlgebra::iterator, SparseGroupAlgebra::iterator> it(s1.begin(), s2.begin());
+			!(it.first == s1.end() && it.second == s2.end());) {
+		if(it.first == s1.end()) {
+			result.push_back((*it.second));
+			it.second++;
+		} else if (it.second == s2.end()) {
+			result.push_back((*it.first));
+			it.first++;
+		} else {
+			if ((*it.first).first == (*it.second).first) {
+				// both coefficient are non zeros
+				Galois sum = (*it.first).second + (*it.second).second;
+				if (sum != Galois::zero) {
+					result.push_back(std::make_pair((*it.first).first, sum));
+				}
+				it.first++;
+				it.second++;
+			} else {
+				// only one is non zero
+				if ((*it.first).first < (*it.second).first) {
+					result.push_back(*it.first);
+					it.first++;
+				} else {
+					result.push_back((*it.second));
+					it.second++;
+				}
 			}
 		}
 	}
-	std::string s = str.str();
-	if(s == "")	s="0";
-	return s;
+
+	return SparseGroupAlgebra(result);
 }
 
-// swap function for efficient use in stl
-void swap(Galois & lhs, Galois & rhs) {
-	std::swap(lhs._m, rhs._m);
+/**
+ * First quick and dirty implementation. TODO :
+ */
+SparseGroupAlgebra multiplySparse(const SparseGroupAlgebra & s1, const SparseGroupAlgebra & s2) {
+	std::vector<std::pair<int, Galois>> products;
+
+	if(s1.isZero())	return SparseGroupAlgebra();
+	if(s2.isZero())	return SparseGroupAlgebra();
+
+	int i;
+	// first step : multiply of the terms and store the non zero ones in the vector
+	for(SparseGroupAlgebra::iterator it1 = s1.begin(); it1 != s1.end(); it1++) {
+		for(SparseGroupAlgebra::iterator it2 = s2.begin(); it2 != s2.end(); it2++) {
+			i = (*it1).first^(*it2).first;
+			if(i != 0) {
+				products.push_back(std::pair<int, Galois>(i, (*it1).second * (*it2).second));
+			}
+		}
+	}
+
+	// sort the terms according to their indices
+	std::sort(products.begin(), products.end(), [](SparseGroupAlgebra::data a, SparseGroupAlgebra::data b) {
+				return a.first < b.first;
+			});
+
+	// add the coefficients of same indices
+	std::vector<std::pair<int, Galois>> result;
+	Galois sum;
+
+	bool first = true;
+	for(auto it = products.begin(); it != products.end(); it++) {
+		if(first) {
+			i = (*it).first;
+			sum = (*it).second;
+			first = false;
+		} else {
+			if((*it).first == i) {
+				sum += (*it).second;
+			} else {
+				if(sum != Galois::zero) {
+					result.push_back(std::pair<int, Galois>(i, sum));
+				}
+				i = (*it).first;
+				sum = (*it).second;
+			}
+		}
+	}
+
+	return SparseGroupAlgebra(result);
 }
 
-
-
-
-
+std::ostream& operator << (std::ostream& out, const SparseGroupAlgebra& s) {
+	out << "S(";
+	bool first =true;
+	for(auto s_it = s.begin(); s_it != s.end(); s_it++) {
+		if(first)
+			first = false;
+		else
+			out << ", ";
+		out << "(" << (*s_it).first << ", " << (*s_it).second.polyRepresentation() << ")";
+	}
+	out << ")";
+	return out;
+}
