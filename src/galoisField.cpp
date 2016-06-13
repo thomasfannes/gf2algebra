@@ -22,6 +22,11 @@ Galois & Galois::operator+=(const Galois & rhs) {
 	return *this;
 }
 
+bool Galois::operator<(const Galois & rhs) const
+{
+    return this->_m < rhs._m;
+}
+
 
 // addition and multiplication
 Galois Galois::operator+(const Galois & rhs) const {

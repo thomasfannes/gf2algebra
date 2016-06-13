@@ -3,7 +3,7 @@
 
 
 SparseGroupAlgebra add(const SparseGroupAlgebra & s1, const SparseGroupAlgebra & s2) {
-	std::vector<std::pair<int, Galois>> result;		// coefficients of the result of the additions
+    std::vector<std::pair<int, Galois> > result;		// coefficients of the result of the additions
 
 	if(s1.isZero())	return s2;
 	if(s2.isZero())	return s1;
@@ -46,7 +46,7 @@ SparseGroupAlgebra add(const SparseGroupAlgebra & s1, const SparseGroupAlgebra &
  * First quick and dirty implementation. TODO :
  */
 SparseGroupAlgebra multiplySparse(const SparseGroupAlgebra & s1, const SparseGroupAlgebra & s2) {
-	std::vector<std::pair<int, Galois>> products;
+    std::vector<std::pair<int, Galois> > products;
 
 	if(s1.isZero())	return SparseGroupAlgebra();
 	if(s2.isZero())	return SparseGroupAlgebra();
@@ -63,16 +63,14 @@ SparseGroupAlgebra multiplySparse(const SparseGroupAlgebra & s1, const SparseGro
 	}
 
 	// sort the terms according to their indices
-	std::sort(products.begin(), products.end(), [](SparseGroupAlgebra::data a, SparseGroupAlgebra::data b) {
-				return a.first < b.first;
-			});
+    std::sort(products.begin(), products.end());
 
 	// add the coefficients of same indices
-	std::vector<std::pair<int, Galois>> result;
+    std::vector<std::pair<int, Galois> > result;
 	Galois sum;
 
 	bool first = true;
-	for(auto it = products.begin(); it != products.end(); it++) {
+    for(std::vector<std::pair<int, Galois> >::const_iterator it = products.begin(); it != products.end(); it++) {
 		if(first) {
 			i = (*it).first;
 			sum = (*it).second;
@@ -96,7 +94,7 @@ SparseGroupAlgebra multiplySparse(const SparseGroupAlgebra & s1, const SparseGro
 std::ostream& operator << (std::ostream& out, const SparseGroupAlgebra& s) {
 	out << "S(";
 	bool first =true;
-	for(auto s_it = s.begin(); s_it != s.end(); s_it++) {
+    for(std::vector<SparseGroupAlgebra::data>::const_iterator s_it = s.begin(); s_it != s.end(); s_it++) {
 		if(first)
 			first = false;
 		else

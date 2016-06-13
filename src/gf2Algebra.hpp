@@ -1,23 +1,25 @@
 #include <vector>
 #include <iostream>
 #include <utility>
+#include <algorithm>
 
 #include "galoisField.hpp"
 
 /*
  * Group algebra GF(2^8)[Z_2^k]
  */
+
 class SparseGroupAlgebra {
 public:
 	typedef std::pair<int, Galois> data; // TODO : find a better name / TODO : choose the convenient data types
+
+
 	SparseGroupAlgebra() {
 
 	}
 
 	SparseGroupAlgebra (std::vector<data> coefficients) : _coefficients(coefficients) {
-		std::sort(_coefficients.begin(), _coefficients.end(), [](data a, data b) {
-			return a.first < b.first;
-		});
+        std::sort(_coefficients.begin(), _coefficients.end());
 	}
 
 	bool isZero() const {

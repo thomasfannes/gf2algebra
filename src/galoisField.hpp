@@ -27,6 +27,7 @@ public:
 	// equality
 	bool operator==(const Galois & rhs) const;
 	bool operator!=(const Galois & rhs) const;
+    bool operator<(const Galois & rhs) const;
 
 	// information functions
 	std::string polyRepresentation() const;
@@ -38,8 +39,9 @@ public:
 
 private:
 	unsigned char _m;
-
 };
+
+
 
 
 static const unsigned char L[GF_ORDER] =
