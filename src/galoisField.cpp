@@ -1,5 +1,5 @@
 #include <sstream>
-#include "galoisFields.hpp"
+#include "galoisField.hpp"
 
 /*
  * GALOIS FIELDS

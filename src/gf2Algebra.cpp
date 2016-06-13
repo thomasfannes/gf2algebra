@@ -1,5 +1,5 @@
 #include <iostream>
-#include "gf2algebra.hpp"
+#include "gf2Algebra.hpp"
 
 
 SparseGroupAlgebra add(const SparseGroupAlgebra & s1, const SparseGroupAlgebra & s2) {

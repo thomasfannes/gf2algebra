@@ -2,7 +2,7 @@
 #include <iostream>
 #include <utility>
 
-#include "galoisFields.hpp"
+#include "galoisField.hpp"
 
 /*
  * Group algebra GF(2^8)[Z_2^k]
