@@ -30,7 +30,7 @@ SparseCoefficient SparseCoefficient::operator+(const SparseCoefficient & rhs) co
 
 SparseCoefficient SparseCoefficient::operator*(const SparseCoefficient & rhs) const
 {
-    return SparseCoefficient(this->coefficient * rhs.coefficient, this->value ^ rhs.value);
+    return SparseCoefficient(this->coefficient * rhs.coefficient, this->value * rhs.value);
 }
 
 bool SparseCoefficient::operator<(const SparseCoefficient & rhs) const

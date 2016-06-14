@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "gf256.hpp"
+#include "z2k.hpp"
 
 
 
@@ -18,8 +19,8 @@ namespace config {
 
 struct SparseCoefficient
 {
-    typedef GF256 field_type;
-    typedef std::size_t group_type;
+    typedef GF256               field_type;
+    typedef Z2k                 group_type;
 
     SparseCoefficient();
     SparseCoefficient(const field_type & coeff, const group_type & val);
@@ -33,16 +34,11 @@ struct SparseCoefficient
 
     bool isZero() const;
 
-
-
-
     field_type coefficient;
     group_type value;
 };
 
 void swap(const SparseCoefficient & lhs, const SparseCoefficient & rhs);
-
-
 
 } // config namespace
 
@@ -52,7 +48,10 @@ void swap(const SparseCoefficient & lhs, const SparseCoefficient & rhs);
 class SparseElement : public std::vector<config::SparseCoefficient>
 {
 public:
-    typedef config::SparseCoefficient sparse_coefficient;
+    typedef config::SparseCoefficient                   sparse_coefficient;
+    typedef std::vector<config::SparseCoefficient>      base;
+    typedef sparse_coefficient::field_type              field_type;
+    typedef sparse_coefficient::group_type              group_type;
 
     SparseElement();
 

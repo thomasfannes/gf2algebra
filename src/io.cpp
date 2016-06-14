@@ -25,7 +25,7 @@ std::ostream & operator << (std::ostream& out, const SparseElement& s)
 
         const SparseElement::sparse_coefficient & el = *s_it;
 
-        out << "(" << el.value << ", " << el.coefficient.polyRepresentation() << ")";
+        out << "(" << el.value.numRepresentation() << ", " << el.coefficient.polyRepresentation() << ")";
     }
     out << ")";
     return out;

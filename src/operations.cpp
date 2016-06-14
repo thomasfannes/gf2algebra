@@ -131,6 +131,57 @@ SparseElement multiplySparse(const SparseElement & s1, const SparseElement & s2)
     return result;
 }
 
+DenseElement add(const DenseElement & d1, const DenseElement & d2)
+{
+    assert(d1.size() == d2.size() && d1.k() == d2.k());
+
+    DenseElement result(d1.k());
+    for(std::size_t i = 0; i < d1.size(); ++i)
+        result[i] = d1[i] + d2[i];
+
+    return result;
+
+
+}
+
+DenseElement multiplyDense(const DenseElement & d1, const DenseElement & d2)
+{
+    assert(d1.size() == d2.size() && d1.k() == d2.k());
+
+    DenseElement result(d1.k());
+    for(std::size_t i = 0; i < d1.size(); ++i)
+    {
+        Z2k p1(i);
+
+        for(std::size_t j = 0; j < d1.size(); ++j)
+        {
+            Z2k p2(j);
+
+            result[(p1*p2).getValue()] = d1[i] * d2[i];
+        }
+    }
+
+    return result;
+}
+
+SemiDenseElement add(const SemiDenseElement &s1, const SemiDenseElement &s2)
+{
+    assert(s1.size() == s2.size() && s1.k() == s2.k() && s1.bitInfo() == s2.bitInfo());
+
+    SemiDenseElement result(s1.k(), s1.bitInfo().unusedBits());
+    for(std::size_t i = 0; i < s1.size(); ++i)
+        result[i] = s1[i] + s2[i];
+
+    return result;
+}
+
+SemiDenseElement multiplySemiDense(const SemiDenseElement &s1, const SemiDenseElement &s2)
+{
+    assert(s1.size() == s2.size() && s1.k() == s2.k() && s1.bitInfo() == s2.bitInfo());
+
+    return result;
+}
+
 
 } // namespace gf2Algebra
 
