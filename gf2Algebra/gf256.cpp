@@ -7,6 +7,13 @@ namespace gf2Algebra {
 
 namespace {
 
+
+/********************************************************************
+ * The following two tables, L and E, are generated based on the    *
+ * the irreducible polynomial x^8 + x^4 + x^3 + x + 1               *
+ ********************************************************************/
+
+
 static const unsigned char L[GF256::ORDER] =
                   { 0x00,   0x00,   0x19,   0x01,   0x32,   0x02,   0x1a,   0xc6,   0x4b,   0xc7,   0x1b,   0x68,   0x33,   0xee,   0xdf,   0x03,
                     0x64, 	0x04, 	0xe0, 	0x0e, 	0x34, 	0x8d, 	0x81, 	0xef, 	0x4c, 	0x71, 	0x08, 	0xc8, 	0xf8, 	0x69, 	0x1c, 	0xc1,
@@ -64,19 +71,6 @@ GF256 & GF256::operator=(const GF256 & rhs)
 	return *this;
 }
 
-// addition assignment
-GF256 & GF256::operator+=(const GF256 & rhs)
-{
-	_m ^= rhs._m;
-	return *this;
-}
-
-
-// addition and multiplication
-GF256 GF256::operator+(const GF256 & rhs) const
-{
-	return GF256(_m ^ rhs._m);
-}
 GF256 GF256::operator*(const GF256 & rhs) const
 {
     std::size_t t = 0;
@@ -85,16 +79,6 @@ GF256 GF256::operator*(const GF256 & rhs) const
     if(t > ORDER - 1)
         t -= (ORDER - 1);
 	return GF256(E[t]);
-}
-
-// equality
-bool GF256::operator==(const GF256 & rhs) const
-{
-	return _m == rhs._m;
-}
-bool GF256::operator!=(const GF256 & rhs) const
-{
-	return _m != rhs._m;
 }
 
 // information functions
@@ -129,12 +113,6 @@ std::string GF256::polyRepresentation() const
         s="0";
 
 	return s;
-}
-
-// swap function for efficient use in stl
-void swap(GF256 & lhs, GF256 & rhs)
-{
-	std::swap(lhs._m, rhs._m);
 }
 
 

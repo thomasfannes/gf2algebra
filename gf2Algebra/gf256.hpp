@@ -16,40 +16,42 @@ namespace gf2Algebra {
  */
 class GF256
 {
-    typedef unsigned char storage_type;
-
 public:
+    typedef unsigned char storage_type;
     static const std::size_t CHARACTERISTIC = 2;
     static const std::size_t POWER = 8;
     static const std::size_t ORDER = 256;
 
 
 	// constructors
-    GF256() : _m(0) {	}
-    explicit GF256(storage_type m) : _m(m){  }
-    GF256(const GF256 & rhs) : _m(rhs._m) { }
+    GF256()                                     : _m(0) {	}
+    explicit GF256(storage_type m)              : _m(m){  }
+    GF256(const GF256 & rhs)                    : _m(rhs._m) { }
 
 	// assignment operator
     GF256 & operator=(const GF256 & rhs);
 
 	// addition assignment
-    GF256 & operator+=(const GF256 & rhs);
+    GF256 & operator+=(const GF256 & rhs)       { _m ^= rhs._m; return *this; }
 
 	// addition and multiplication
-    GF256 operator+(const GF256 & rhs) const;
+    GF256 operator+(const GF256 & rhs) const    { return GF256(_m ^ rhs._m); }
     GF256 operator*(const GF256 & rhs) const;
 
 	// equality
-    bool operator==(const GF256 & rhs) const;
-    bool operator!=(const GF256 & rhs) const;
+    bool operator==(const GF256 & rhs) const    { return _m == rhs._m; }
+    bool operator!=(const GF256 & rhs) const    { return _m != rhs._m; }
 
 	// information functions
 	std::string polyRepresentation() const;
+    storage_type integralRepresentation() const { return _m; }
 
     static const GF256 zero;
 
 	// swap function for efficient use in stl
-   friend void swap(GF256 & lhs, GF256 & rhs);
+    friend void swap(GF256 & lhs, GF256 & rhs)  { std::swap(lhs._m, rhs._m); }
+
+
 
 private:
     storage_type _m;

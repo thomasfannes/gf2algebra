@@ -6,4 +6,5 @@ set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-Wextra -Wall -Wno-unused-local-typedefs
 ENABLE_TESTING()
 include(CTest)
 
-add_subdirectory(src)
+add_subdirectory(gf2Algebra)
+add_subdirectory(test)
