@@ -10,10 +10,28 @@
 #include <gf2Algebra/representation.hpp>
 #include <gf2Algebra/identityIndexMap.hpp>
 #include <gf2Algebra/io.hpp>
+#include <gf2Algebra/operations/transform.hpp>
 #include <boost/test/framework.hpp>
 
 struct DenseTag {};
 struct SparseTag {};
+
+template <typename Tag> class traits;
+
+template <> class traits<DenseTag>
+{
+    typedef std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> type;
+};
+template <> class traits<SparseTag>
+{
+    typedef gf2Algebra::SparseRepresentation type;
+};
+
+traits<SparseTag> transform(const traits<SparseTag> & representation, unsigned int k);
+traits<SparseTag> transform(const traits<DenseTag> & representation, unsigned char k);
+traits<DenseTag> transform(const traits<SparseTag> & representation, unsigned char k);
+traits<DenseTag> transform(const traits<DenseTag> & representation, unsigned int k);
+
 
 std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> generateRandom(unsigned char k, std::size_t noValues, DenseTag);
 gf2Algebra::SparseRepresentation generateRandom(unsigned char k, std::size_t noValues, SparseTag);

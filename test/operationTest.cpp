@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE TransformTest
+#define BOOST_TEST_MODULE OperationTest
 #define BOOST_TEST_DYN_LINK
 
 #include <boost/test/unit_test.hpp>
@@ -7,7 +7,6 @@
 #include <gf2Algebra/operations/transform.hpp>
 #include "util.hpp"
 
-using namespace gf2Algebra;
 
 void performDenseToSparseTest(std::size_t sz, std::size_t noValues, std::size_t k)
 {

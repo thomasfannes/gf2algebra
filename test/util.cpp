@@ -37,3 +37,32 @@ SparseRepresentation generateRandom(unsigned char k, std::size_t noValues, Spars
 
     return rep;
 }
+
+
+gf2Algebra::SparseRepresentation transform(const gf2Algebra::SparseRepresentation & representation, unsigned int /*k*/)
+{
+    return representation;
+}
+
+std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> transform(const gf2Algebra::SparseRepresentation &representation, unsigned char k)
+{
+    std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> res;
+    gf2Algebra::initialize(res.first, k);
+
+    gf2Algebra::makeDense(representation, res);
+    return res;
+}
+
+std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> transform(const std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> & representation, unsigned int /*k*/)
+{
+    return representation;
+}
+
+gf2Algebra::SparseRepresentation transform(const std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> &representation, unsigned char k)
+{
+    gf2Algebra::SparseRepresentation res;
+    gf2Algebra::initialize(res, k);
+
+    gf2Algebra::makeSparse(representation, res);
+    return res;
+}

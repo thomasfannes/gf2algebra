@@ -8,8 +8,11 @@ target_link_libraries(util gf2Algebra ${Boost_LIBRARIES})
 
 add_executable(transformTest transformTest.cpp)
 target_link_libraries(transformTest gf2Algebra util ${Boost_LIBRARIES})
-
-
 add_test(NAME transformTest COMMAND transformTest)
+
+
+add_executable(operationTest operationTest.cpp)
+target_link_libraries(operationTest gf2Algebra util ${Boost_LIBRARIES})
+add_test(NAME operationTest COMMAND operationTest)
 
 
