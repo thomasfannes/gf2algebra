@@ -14,15 +14,16 @@
 #include <boost/test/framework.hpp>
 
 struct DenseTag {};
+struct SemiDenseTag {};
 struct SparseTag {};
 
-template <typename Tag> class traits;
+template <typename Tag> struct traits;
 
-template <> class traits<DenseTag>
+template <> struct traits<DenseTag>
 {
     typedef std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> type;
 };
-template <> class traits<SparseTag>
+template <> struct traits<SparseTag>
 {
     typedef gf2Algebra::SparseRepresentation type;
 };
@@ -35,6 +36,9 @@ traits<DenseTag> transform(const traits<DenseTag> & representation, unsigned int
 
 std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> generateRandom(unsigned char k, std::size_t noValues, DenseTag);
 gf2Algebra::SparseRepresentation generateRandom(unsigned char k, std::size_t noValues, SparseTag);
+
+std::string toString(const traits<DenseTag>::type & representation);
+std::string toString(const traits<SparseTag>::type & representation);
 
 template <typename iterator>
 bool checkZero(std::pair<iterator, iterator> p)

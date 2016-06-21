@@ -6,6 +6,7 @@
 
 #include "util.hpp"
 #include <cstdlib>
+#include <sstream>
 #include <gf2Algebra/iterator.hpp>
 #include <gf2Algebra/identityIndexMap.hpp>
 
@@ -65,4 +66,20 @@ gf2Algebra::SparseRepresentation transform(const std::pair<gf2Algebra::DenseRepr
 
     gf2Algebra::makeSparse(representation, res);
     return res;
+}
+
+std::string toString(const traits<DenseTag>::type & representation)
+{
+    std::stringstream str;
+    str << gf2Algebra::streamify(representation);
+
+    return str.str();
+}
+
+std::string toString(const traits<SparseTag>::type & representation)
+{
+    std::stringstream str;
+    str << gf2Algebra::streamify(representation);
+
+    return str.str();
 }

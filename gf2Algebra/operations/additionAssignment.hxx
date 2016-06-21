@@ -33,33 +33,43 @@ void addAssign(SparseRepresentation & lhs, const SparseRepresentation & rhs)
 }
 
 
+
 template <typename RhsIndexMap>
-void addAssign(SparseRepresentation & lhs, const DenseRepresentation & rhs, const RhsIndexMap & rhsIndexMap)
+void addAssign(
+        SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs)
 {
     SparseRepresentation res;
-    res.reserve(rhs.size());
+    res.reserve(rhs.first.size());
 
-    add(lhs, rhs, res, rhsIndexMap);
+    add(lhs, rhs, res);
     std::swap(lhs, res);
 }
 
 template <typename LhsIndexMap>
-void addAssign(DenseRepresentation & lhs, const SparseRepresentation & rhs, const LhsIndexMap & lhsIndexMap)
+void addAssign(
+        std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs)
 {
     internal::add_to_dense(
                 make_value_coefficient_input_range(rhs),
-                make_ordered_value_coefficient_output_iterator(lhs, lhsIndexMap)
+                make_ordered_value_coefficient_output_iterator(lhs)
                 );
 }
 
+
 template <typename LhsIndexMap, typename RhsIndexMap>
-void addAssign(DenseRepresentation & lhs, const DenseRepresentation & rhs, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap)
+void addAssign(
+        std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs)
 {
     internal::add_to_dense(
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_ordered_value_coefficient_output_iterator(lhs, lhsIndexMap)
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(lhs)
                 );
 }
+
+
 
 } // namespace gf2Algebra
 

@@ -48,73 +48,96 @@ inline void add(const SparseRepresentation & lhs, const SparseRepresentation & r
                 );
 }
 
+
+
 template <typename TgtIndexMap>
-void add(const SparseRepresentation & lhs, const SparseRepresentation & rhs, DenseRepresentation & tgt, const TgtIndexMap & tgtIndexMap)
+void add(
+        const SparseRepresentation & lhs,
+        const SparseRepresentation & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
 {
     internal::default_add(
                 make_value_coefficient_input_range(lhs),
                 make_value_coefficient_input_range(rhs),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
+                make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
 template <typename RhsIndexMap>
-void add(const SparseRepresentation & lhs, const DenseRepresentation & rhs, SparseRepresentation & tgt, const RhsIndexMap & rhsIndexMap)
+void add(
+        const SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        SparseRepresentation & tgt)
 {
     internal::default_add(
                 make_value_coefficient_input_range(lhs),
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
+                make_value_coefficient_input_range(rhs),
                 make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
 template <typename RhsIndexMap, typename TgtIndexMap>
-void add(const SparseRepresentation & lhs, const DenseRepresentation & rhs, DenseRepresentation & tgt, const RhsIndexMap & rhsIndexMap, const TgtIndexMap & tgtIndexMap)
+void add(
+        const SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
 {
     internal::default_add(
                 make_value_coefficient_input_range(lhs),
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
 template <typename LhsIndexMap>
-void add(const DenseRepresentation & lhs, const SparseRepresentation & rhs, SparseRepresentation & tgt, const LhsIndexMap & lhsIndexMap)
+void add(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs,
+        SparseRepresentation & tgt)
 {
     internal::default_add(
+                make_value_coefficient_input_range(lhs),
                 make_value_coefficient_input_range(rhs),
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
                 make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
 template <typename LhsIndexMap, typename TgtIndexMap>
-void add(const DenseRepresentation & lhs, const SparseRepresentation & rhs, DenseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const TgtIndexMap & tgtIndexMap)
+void add(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
 {
     internal::default_add(
+                make_value_coefficient_input_range(lhs),
                 make_value_coefficient_input_range(rhs),
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
+                make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
 template <typename LhsIndexMap, typename RhsIndexMap>
-void add(const DenseRepresentation & lhs, const DenseRepresentation & rhs, SparseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap)
+void add(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        SparseRepresentation & tgt)
 {
     internal::default_add(
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
                 make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
 template <typename LhsIndexMap, typename RhsIndexMap, typename TgtIndexMap>
-void add(const DenseRepresentation & lhs, const DenseRepresentation & rhs, DenseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap, const TgtIndexMap & tgtIndexMap)
+void add(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
 {
     internal::default_add(
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 

@@ -48,6 +48,8 @@ typedef unsigned int        K_UNSIGNED_TYPE;
 typedef int                 K_SIGNED_TYPE;
 typedef long int            K2_SIGNED_TYPE;
 
+static const std::size_t MAX_K_VALUE = 31;
+
 /**
     * On the current machine, this implies an upper bound for k to be 31
     */

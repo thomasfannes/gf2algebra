@@ -13,6 +13,8 @@ set(
   representation.cpp
 
   identityIndexMap.hpp
+  subsetIndexMap.hpp
+  subsetIndexMap.cpp
 
   iterator.hpp
 
@@ -29,20 +31,27 @@ set(
   internal/fwht.hpp
   internal/fwht.cpp
   internal/fwht.hxx
+  internal/dynamicElementImp.hpp
+  internal/dynamicElementImp.cpp
 
 
   operations/addition.hpp
   operations/addition.hxx
   operations/additionAssignment.hpp
   operations/additionAssignment.hxx
-  operations/multiply.hpp
-  operations/multiply.hxx
+  operations/multiplication.hpp
+  operations/multiplication.hxx
+  operations/copy.hpp
+  #operations/copy.hxx
 
 
 
 
   io.hpp
 
+
+  dynamicElement.hpp
+  dynamicElement.cpp
 
   )
 

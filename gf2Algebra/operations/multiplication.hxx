@@ -94,14 +94,126 @@ inline void multiply(const SparseRepresentation & lhs, const SparseRepresentatio
                 );
 }
 
+
+template <typename TgtIndexMap>
+void multiply(
+        const SparseRepresentation & lhs,
+        const SparseRepresentation & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
+{
+    internal::element_wise_multiply(
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(tgt)
+                );
+}
+
+template <typename RhsIndexMap>
+void multiply(
+        const SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        SparseRepresentation & tgt)
+{
+    internal::element_wise_multiply(
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
+                make_unordered_value_coefficient_output_iterator(tgt)
+                );
+
+}
+
+template <typename RhsIndexMap, typename TgtIndexMap>
+void multiply(
+        const SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
+{
+    internal::element_wise_multiply(
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(tgt)
+                );
+}
+
+template <typename LhsIndexMap>
+void multiply(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs,
+        SparseRepresentation & tgt)
+{
+    internal::element_wise_multiply(
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
+                make_unordered_value_coefficient_output_iterator(tgt)
+                );
+
+}
+
+template <typename LhsIndexMap, typename TgtIndexMap>
+void multiply(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
+{
+    internal::element_wise_multiply(
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(tgt)
+                );
+}
+
+template <typename LhsIndexMap, typename RhsIndexMap>
+void multiply(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        SparseRepresentation & tgt)
+{
+internal::element_wise_multiply(
+            make_value_coefficient_input_range(lhs),
+            make_value_coefficient_input_range(rhs),
+            make_unordered_value_coefficient_output_iterator(tgt)
+            );
+}
+
+template <typename LhsIndexMap, typename RhsIndexMap, typename TgtIndexMap>
+void multiply(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
+{
+    internal::element_wise_multiply(
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(tgt)
+                );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 template <typename RhsIndexMap>
 void multiply(const SparseRepresentation & lhs, const DenseRepresentation & rhs, SparseRepresentation & tgt, const RhsIndexMap & rhsIndexMap)
 {
-    internal::element_wise_multiply(
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_value_coefficient_input_range(lhs),
-                make_unordered_value_coefficient_output_iterator(tgt)
-                );
+
 }
 
 template <typename LhsIndexMap>
@@ -167,9 +279,12 @@ void multiply(const DenseRepresentation & lhs, const DenseRepresentation & rhs, 
 
 
 
-
-
-void multiply_FFT(unsigned char noBits, const SparseRepresentation & lhs, const SparseRepresentation & rhs, SparseRepresentation & tgt)
+inline
+void multiply_FFT(
+        unsigned char noBits,
+        const SparseRepresentation & lhs,
+        const SparseRepresentation & rhs,
+        SparseRepresentation & tgt)
 {
     internal::fft_multiply(
                 noBits,
@@ -179,83 +294,115 @@ void multiply_FFT(unsigned char noBits, const SparseRepresentation & lhs, const 
                 );
 }
 
+
+
 template <typename TgtIndexMap>
-void multiply_FFT(unsigned char noBits, const SparseRepresentation & lhs, const SparseRepresentation & rhs, DenseRepresentation & tgt, const TgtIndexMap & tgtIndexMap)
+void multiply_FFT(
+        unsigned char noBits,
+        const SparseRepresentation & lhs,
+        const SparseRepresentation & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
 {
     internal::fft_multiply(
                 noBits,
                 make_value_coefficient_input_range(lhs),
                 make_value_coefficient_input_range(rhs),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
+                make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
 template <typename RhsIndexMap>
-void multiply_FFT(unsigned char noBits, const SparseRepresentation & lhs, const DenseRepresentation & rhs, SparseRepresentation & tgt, const RhsIndexMap & rhsIndexMap)
+void multiply_FFT(
+        unsigned char noBits,
+        const SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        SparseRepresentation & tgt)
 {
     internal::fft_multiply(
                 noBits,
                 make_value_coefficient_input_range(lhs),
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
+                make_value_coefficient_input_range(rhs),
                 make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
 template <typename RhsIndexMap, typename TgtIndexMap>
-void multiply_FFT(unsigned char noBits, const SparseRepresentation & lhs, const DenseRepresentation & rhs, DenseRepresentation & tgt, const RhsIndexMap & rhsIndexMap, const TgtIndexMap & tgtIndexMap)
+void multiply_FFT(
+        unsigned char noBits,
+        const SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
 {
     internal::fft_multiply(
                 noBits,
                 make_value_coefficient_input_range(lhs),
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
 template <typename LhsIndexMap>
-void multiply_FFT(unsigned char noBits, const DenseRepresentation & lhs, const SparseRepresentation & rhs, SparseRepresentation & tgt, const LhsIndexMap & lhsIndexMap)
+void multiply_FFT(
+        unsigned char noBits,
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs,
+        SparseRepresentation & tgt)
 {
     internal::fft_multiply(
                 noBits,
+                make_value_coefficient_input_range(lhs),
                 make_value_coefficient_input_range(rhs),
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
                 make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
+
 
 template <typename LhsIndexMap, typename TgtIndexMap>
-void multiply_FFT(unsigned char noBits, const DenseRepresentation & lhs, const SparseRepresentation & rhs, DenseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const TgtIndexMap & tgtIndexMap)
+void multiply_FFT(
+        unsigned char noBits,
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
 {
     internal::fft_multiply(
                 noBits,
+                make_value_coefficient_input_range(lhs),
                 make_value_coefficient_input_range(rhs),
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
-                );
-}
-
-template <typename LhsIndexMap, typename RhsIndexMap>
-void multiply_FFT(unsigned char noBits, const DenseRepresentation & lhs, const DenseRepresentation & rhs, SparseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap)
-{
-    internal::fft_multiply(
-                noBits,
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
                 make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
-template <typename LhsIndexMap, typename RhsIndexMap, typename TgtIndexMap>
-void multiply_FFT(unsigned char noBits, const DenseRepresentation & lhs, const DenseRepresentation & rhs, DenseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap, const TgtIndexMap & tgtIndexMap)
+
+template <typename LhsIndexMap, typename RhsIndexMap>
+void multiply_FFT(
+        unsigned char noBits,
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        SparseRepresentation & tgt)
 {
     internal::fft_multiply(
                 noBits,
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(tgt)
                 );
 }
 
+
+template <typename LhsIndexMap, typename RhsIndexMap, typename TgtIndexMap>
+void multiply_FFT(
+        unsigned char noBits,
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt)
+{
+    internal::fft_multiply(
+                noBits,
+                make_value_coefficient_input_range(lhs),
+                make_value_coefficient_input_range(rhs),
+                make_ordered_value_coefficient_output_iterator(tgt)
+                );
+}
 
 
 } // namespace gf2Algebra

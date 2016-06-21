@@ -9,15 +9,61 @@
 
 namespace gf2Algebra {
 
+struct SubsetIndexMap::MaskAndShift
+{
+    MaskAndShift()
+        : mask(std::numeric_limits<Z2k::storage_type>::max()), shift(0)
+    {
+    }
+
+    MaskAndShift(Z2k::storage_type nMask, unsigned char nShift)
+        : mask(nMask),
+          shift(nShift)
+    {
+    }
+
+    MaskAndShift & operator=(const MaskAndShift & rhs)
+    {
+        MaskAndShift tmp(rhs);
+        swap(tmp, *this);
+
+        return *this;
+    }
+
+    friend void swap(MaskAndShift & lhs, MaskAndShift & rhs)
+    {
+        using std::swap;
+        swap(lhs.mask, rhs.mask);
+        swap(lhs.shift, rhs.shift);
+    }
+
+    // the masks are already shifted left
+    Z2k::storage_type mask;
+    unsigned char shift;
+};
+
 
 SubsetIndexMap::SubsetIndexMap()
     : lst_(1, MaskAndShift())
 {
 }
 
-SubsetIndexMap::SubsetIndexMap(unsigned char k, const std::set<unsigned char> & unusedBits)
+SubsetIndexMap::SubsetIndexMap(const SubsetIndexMap & rhs)
+    : lst_(rhs.lst_)
 {
-    initializeShiftMap(k, unusedBits);
+}
+
+SubsetIndexMap::SubsetIndexMap(unsigned char k, const std::bitset<MAX_K_VALUE> & usedBits)
+{
+    initializeShiftMap(k, usedBits);
+}
+
+SubsetIndexMap & SubsetIndexMap::operator=(const SubsetIndexMap & rhs)
+{
+    SubsetIndexMap tmp(rhs);
+    swap(tmp, *this);
+
+    return *this;
 }
 
 Z2k SubsetIndexMap::fromIndex(std::size_t idx) const
@@ -47,20 +93,49 @@ std::size_t SubsetIndexMap::fromGroupValue(Z2k value) const
     return idx;
 }
 
-void SubsetIndexMap::initializeShiftMap(unsigned char k, const std::set<unsigned char> & unusedBits)
+void SubsetIndexMap::initializeShiftMap(unsigned char k, const std::bitset<MAX_K_VALUE> &usedBits)
 {
 
+
+    unsigned char noOfActiveBits = 0;
+
+    std::size_t curBit = 0;
+    while(curBit < MAX_K_VALUE)
+    {
+        // find the first set bit
+        while(curBit < k && usedBits[curBit] == false)
+            ++curBit;
+
+        // all bits processed? if so, we are finished
+        if(curBit == k)
+            return;
+
+        std::size_t firstActive = curBit;
+
+        // find the first non-set bit
+        while(curBit < k && usedBits[curBit] == true)
+            ++curBit;
+
+        std::size_t lastActive = curBit;
+
+        // make the mask and shift
+        unsigned char shift = firstActive - noOfActiveBits;
+        std::size_t noBits = lastActive - firstActive;
+        Z2k::storage_type mask = ((1 << noBits) - 1) << shift;
+
+        // and add it
+        lst_.push_back(MaskAndShift(mask, shift));
+
+        // and update the number of bits
+        noOfActiveBits += noBits;
+    }
 }
 
-struct SubsetIndexMap::MaskAndShift
+void swap(SubsetIndexMap & lhs, SubsetIndexMap & rhs)
 {
-    MaskAndShift()
-        : mask(std::numeric_limits<Z2k::storage_type>::max()), shift(0)
-    {
-    }
+    using std::swap;
+    swap(lhs.lst_, rhs.lst_);
+}
 
-    Z2k::storage_type mask;
-    unsigned char shift;
-};
 
 } // namespace gf2Algebra

@@ -11,57 +11,52 @@
 
 namespace gf2Algebra {
 
-void add(const SparseRepresentation & lhs, const SparseRepresentation & rhs, SparseRepresentation & tgt);
+void add(
+        const SparseRepresentation & lhs,
+        const SparseRepresentation & rhs,
+        SparseRepresentation & tgt);
 
 template <typename TgtIndexMap>
-void add(const SparseRepresentation & lhs, const SparseRepresentation & rhs, DenseRepresentation & tgt, const TgtIndexMap & tgtIndexMap);
+void add(
+        const SparseRepresentation & lhs,
+        const SparseRepresentation & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt);
 
 template <typename RhsIndexMap>
-void add(const SparseRepresentation & lhs, const DenseRepresentation & rhs, SparseRepresentation & tgt, const RhsIndexMap & rhsIndexMap);
+void add(
+        const SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        SparseRepresentation & tgt);
 
 template <typename RhsIndexMap, typename TgtIndexMap>
-void add(const SparseRepresentation & lhs, const DenseRepresentation & rhs, DenseRepresentation & tgt, const RhsIndexMap & rhsIndexMap, const TgtIndexMap & tgtIndexMap);
+void add(
+        const SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt);
 
 template <typename LhsIndexMap>
-void add(const DenseRepresentation & lhs, const SparseRepresentation & rhs, SparseRepresentation & tgt, const LhsIndexMap & lhsIndexMap);
+void add(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs,
+        SparseRepresentation & tgt);
 
 template <typename LhsIndexMap, typename TgtIndexMap>
-void add(const DenseRepresentation & lhs, const SparseRepresentation & rhs, DenseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const TgtIndexMap & tgtIndexMap);
+void add(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt);
 
 template <typename LhsIndexMap, typename RhsIndexMap>
-void add(const DenseRepresentation & lhs, const DenseRepresentation & rhs, SparseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap);
+void add(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        SparseRepresentation & tg);
 
 template <typename LhsIndexMap, typename RhsIndexMap, typename TgtIndexMap>
-void add(const DenseRepresentation & lhs, const DenseRepresentation & rhs, DenseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap, const TgtIndexMap & tgtIndexMap);
-
-
-template <typename TgtIndexMap>
-void add(const SparseRepresentation & lhs, const SparseRepresentation & rhs, std::pair<DenseRepresentation, TgtIndexMap> & tgt)
-{ add(lhs, rhs, tgt.first, tgt.second); }
-
-template <typename RhsIndexMap>
-void add(const SparseRepresentation & lhs, const std::pair<DenseRepresentation, RhsIndexMap> & rhs, SparseRepresentation & tgt)
-{ add(lhs, rhs.first, tgt, rhs.second); }
-
-template <typename RhsIndexMap, typename TgtIndexMap>
-void add(const SparseRepresentation & lhs, const std::pair<DenseRepresentation, RhsIndexMap> & rhs, std::pair<DenseRepresentation, TgtIndexMap> & tgt)
-{ add(lhs, rhs.first, tgt.first, rhs.second, tgt.second); }
-
-template <typename LhsIndexMap>
-void add(const std::pair<DenseRepresentation, LhsIndexMap> & lhs, const SparseRepresentation & rhs, SparseRepresentation & tgt)
-{ add(lhs.first, rhs, tgt, lhs.second); }
-
-template <typename LhsIndexMap, typename TgtIndexMap>
-void add(const std::pair<DenseRepresentation, LhsIndexMap> & lhs, const SparseRepresentation & rhs, std::pair<DenseRepresentation, TgtIndexMap> & tgt)
-{ add(lhs.first, rhs, tgt.first, lhs.second, tgt.second); }
-
-template <typename LhsIndexMap, typename RhsIndexMap>
-void add(const std::pair<DenseRepresentation, LhsIndexMap> & lhs, const std::pair<DenseRepresentation, RhsIndexMap> & rhs, SparseRepresentation & tgt)
-{ add(lhs.first, rhs.first, tgt, lhs.second, rhs.second); }
-
-template <typename LhsIndexMap, typename RhsIndexMap, typename TgtIndexMap>
-void add(const std::pair<DenseRepresentation, LhsIndexMap> & lhs, const std::pair<DenseRepresentation, RhsIndexMap> & rhs, std::pair<DenseRepresentation, TgtIndexMap> & tgt)
-{ add(lhs.first, rhs.first, tgt.first, lhs.second, rhs.second, tgt.second); }
+void add(
+        const std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs,
+        std::pair<DenseRepresentation, TgtIndexMap> & tgt);
 
 } // namespace gf2Algebra
 

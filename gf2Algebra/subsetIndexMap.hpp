@@ -7,8 +7,8 @@
 #ifndef GF2ALGEBRA_SUBSETINDEXMAP_HPP
 #define GF2ALGEBRA_SUBSETINDEXMAP_HPP
 
+#include <bitset>
 #include <vector>
-#include <set>
 #include "z2k.hpp"
 
 namespace gf2Algebra {
@@ -19,13 +19,18 @@ class SubsetIndexMap
 
 public:
     SubsetIndexMap();
-    SubsetIndexMap(unsigned char k, const std::set<unsigned char> & unusedBits);
+    SubsetIndexMap(unsigned char k, const std::bitset<MAX_K_VALUE> & usedBits);
+    SubsetIndexMap(const SubsetIndexMap & rhs);
+
+    SubsetIndexMap & operator=(const SubsetIndexMap & rhs);
 
     Z2k fromIndex(std::size_t idx) const;
     std::size_t fromGroupValue(Z2k value) const;
 
 private:
-    void initializeShiftMap(unsigned char k, const std::set<unsigned char> & unusedBits);
+    friend void swap(SubsetIndexMap & lhs, SubsetIndexMap & rhs);
+
+    void initializeShiftMap(unsigned char k, const std::bitset<MAX_K_VALUE> & usedBits);
 
     std::vector<MaskAndShift> lst_;
 };

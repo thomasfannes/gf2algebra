@@ -11,29 +11,24 @@
 
 namespace gf2Algebra {
 
-void addAssign(SparseRepresentation & lhs, const SparseRepresentation & rhs);
+void addAssign(
+        SparseRepresentation & lhs,
+        const SparseRepresentation & rhs);
 
 template <typename RhsIndexMap>
-void addAssign(SparseRepresentation & lhs, const DenseRepresentation & rhs, const RhsIndexMap & rhsIndexMap);
+void addAssign(
+        SparseRepresentation & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs);
 
 template <typename LhsIndexMap>
-void addAssign(DenseRepresentation & lhs, const SparseRepresentation & rhs, const LhsIndexMap & lhsIndexMap);
+void addAssign(
+        std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const SparseRepresentation & rhs);
 
 template <typename LhsIndexMap, typename RhsIndexMap>
-void addAssign(DenseRepresentation & lhs, const DenseRepresentation & rhs, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap);
-
-
-template <typename RhsIndexMap>
-void addAssign(SparseRepresentation & lhs, const std::pair<DenseRepresentation, RhsIndexMap> & rhs)
-{ addAssign(lhs, rhs.first, rhs.second); }
-
-template <typename LhsIndexMap>
-void addAssign(std::pair<DenseRepresentation, LhsIndexMap> & lhs, const SparseRepresentation & rhs)
-{ addAssign(lhs.first, rhs, lhs.second); }
-
-template <typename LhsIndexMap, typename RhsIndexMap>
-void addAssign(std::pair<DenseRepresentation, LhsIndexMap> & lhs, const std::pair<DenseRepresentation, RhsIndexMap> & rhs)
-{ addAssign(lhs.first, rhs.first, lhs.second, rhs.second); }
+void addAssign(
+        std::pair<DenseRepresentation, LhsIndexMap> & lhs,
+        const std::pair<DenseRepresentation, RhsIndexMap> & rhs);
 
 
 

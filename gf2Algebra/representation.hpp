@@ -19,12 +19,13 @@ typedef std::vector<ValueCoefficientPair> SparseRepresentation;
 
 bool isZero(const SparseRepresentation & representation);
 bool isZero(const DenseRepresentation & representation);
+
 std::size_t countNonZero(const SparseRepresentation & representation);
 std::size_t countNonZero(const DenseRepresentation & representation);
 
-
 void initialize(DenseRepresentation & representation, std::size_t k);
 void initialize(SparseRepresentation & representation, std::size_t k);
+
 void reset(DenseRepresentation & representation);
 void reset(SparseRepresentation & representation);
 
