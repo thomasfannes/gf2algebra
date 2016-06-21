@@ -13,9 +13,19 @@
 
 namespace gf2Algebra {
 
+struct MaskAndShift
+{
+    MaskAndShift(Z2k::storage_type nMask, unsigned char nShift);
+    MaskAndShift();
+    friend void swap(MaskAndShift & lhs, MaskAndShift & rhs);
+
+    Z2k::storage_type mask;
+    unsigned char shift;
+};
+
 class SubsetIndexMap
 {
-    struct MaskAndShift;
+
 
 public:
     SubsetIndexMap();

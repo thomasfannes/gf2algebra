@@ -9,38 +9,24 @@
 
 namespace gf2Algebra {
 
-struct SubsetIndexMap::MaskAndShift
+
+MaskAndShift::MaskAndShift()
+    : mask(std::numeric_limits<Z2k::storage_type>::max()), shift(0)
 {
-    MaskAndShift()
-        : mask(std::numeric_limits<Z2k::storage_type>::max()), shift(0)
-    {
-    }
+}
 
-    MaskAndShift(Z2k::storage_type nMask, unsigned char nShift)
-        : mask(nMask),
-          shift(nShift)
-    {
-    }
+MaskAndShift::MaskAndShift(Z2k::storage_type nMask, unsigned char nShift)
+    : mask(nMask),
+      shift(nShift)
+{
+}
 
-    MaskAndShift & operator=(const MaskAndShift & rhs)
-    {
-        MaskAndShift tmp(rhs);
-        swap(tmp, *this);
-
-        return *this;
-    }
-
-    friend void swap(MaskAndShift & lhs, MaskAndShift & rhs)
-    {
-        using std::swap;
-        swap(lhs.mask, rhs.mask);
-        swap(lhs.shift, rhs.shift);
-    }
-
-    // the masks are already shifted left
-    Z2k::storage_type mask;
-    unsigned char shift;
-};
+void swap(MaskAndShift & lhs, MaskAndShift & rhs)
+{
+    using std::swap;
+    swap(lhs.mask, rhs.mask);
+    swap(lhs.shift, rhs.shift);
+}
 
 
 SubsetIndexMap::SubsetIndexMap()

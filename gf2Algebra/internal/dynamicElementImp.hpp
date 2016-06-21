@@ -31,11 +31,21 @@ public:
     DynamicElementStorageType type() const;
     void changeType(DynamicElementStorageType type);
 
+    void reset(DynamicElementStorageType type);
+    void reset();
+    static void reset(variant_type & value, DynamicElementStorageType type, const Bitset & activeBits, unsigned char k);
 
+
+    variant_type & variant();
+    const variant_type & variant() const;
+
+    const Bitset & activeBits() const;
+    unsigned char k() const;
 
 private:
-    void initValue(variant_type & value, DynamicElementStorageType type) const;
     friend void swap(DynamicElementImpl & el1, DynamicElementImpl & el2);
+
+
 
     variant_type value_;
     DynamicElementStorageType type_;

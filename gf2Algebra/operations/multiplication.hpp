@@ -4,8 +4,8 @@
 * the LICENSE file
 ********************************************************************/
 
-#ifndef GF2ALGEBRA_OPERATIONS_MULTIPLY_HPP
-#define GF2ALGEBRA_OPERATIONS_MULTIPLY_HPP
+#ifndef GF2ALGEBRA_OPERATIONS_MULTIPLICATION_HPP
+#define GF2ALGEBRA_OPERATIONS_MULTIPLICATION_HPP
 
 namespace gf2Algebra {
 
@@ -117,6 +117,6 @@ void multiply_FFT(
 
 } // namespace gf2Algebra
 
-#include "multiply.hxx"
+#include "multiplication.hxx"
 
-#endif // GF2ALGEBRA_OPERATIONS_MULTIPLY_HPP
+#endif // GF2ALGEBRA_OPERATIONS_MULTIPLICATION_HPP

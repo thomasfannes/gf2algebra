@@ -55,7 +55,7 @@ void copy(
 }
 
 template <>
-void copy(
+inline void copy<IdentityIndexMap, IdentityIndexMap>(
         const std::pair<DenseRepresentation, IdentityIndexMap> & source,
         std::pair<DenseRepresentation, IdentityIndexMap> & target
         )

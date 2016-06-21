@@ -2,7 +2,7 @@
 
 namespace gf2Algebra {
 
-dynamicElement::dynamicElement()
+DynamicElement::DynamicElement()
 {
 
 }

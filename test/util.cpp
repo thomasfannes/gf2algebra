@@ -50,7 +50,7 @@ std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> transfo
     std::pair<gf2Algebra::DenseRepresentation, gf2Algebra::IdentityIndexMap> res;
     gf2Algebra::initialize(res.first, k);
 
-    gf2Algebra::makeDense(representation, res);
+    gf2Algebra::copy(representation, res);
     return res;
 }
 
@@ -64,7 +64,7 @@ gf2Algebra::SparseRepresentation transform(const std::pair<gf2Algebra::DenseRepr
     gf2Algebra::SparseRepresentation res;
     gf2Algebra::initialize(res, k);
 
-    gf2Algebra::makeSparse(representation, res);
+    gf2Algebra::copy(representation, res);
     return res;
 }
 

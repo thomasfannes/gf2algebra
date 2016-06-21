@@ -24,7 +24,7 @@ void copy(
         std::pair<DenseRepresentation, TgtIndexMap> & target);
 
 template <>
-void copy(
+void copy<IdentityIndexMap, IdentityIndexMap>(
         const std::pair<DenseRepresentation, IdentityIndexMap> & source,
         std::pair<DenseRepresentation, IdentityIndexMap> & target
         );

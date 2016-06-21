@@ -10,7 +10,7 @@
 #include <gf2Algebra/representation.hpp>
 #include <gf2Algebra/identityIndexMap.hpp>
 #include <gf2Algebra/io.hpp>
-#include <gf2Algebra/operations/transform.hpp>
+#include <gf2Algebra/operations/copy.hpp>
 #include <boost/test/framework.hpp>
 
 struct DenseTag {};

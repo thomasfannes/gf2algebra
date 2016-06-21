@@ -4,7 +4,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <gf2Algebra/representation.hpp>
-#include <gf2Algebra/operations/transform.hpp>
+#include <gf2Algebra/operations/copy.hpp>
 #include "util.hpp"
 
 using namespace gf2Algebra;
@@ -21,7 +21,7 @@ void performDenseToSparseTest(std::size_t sz, std::size_t noValues, std::size_t 
         initialize(tgt, k);
 
         // copying
-        makeSparse(src, tgt);
+        gf2Algebra::copy(src, tgt);
 
         // and checking
         BOOST_REQUIRE( checkEqual(make_value_coefficient_input_range(src), make_value_coefficient_input_range(tgt)) );
@@ -41,7 +41,7 @@ void performSparseToDenseTest(std::size_t sz, std::size_t noValues, std::size_t 
         initialize(tgt.first, k);
 
         // copying
-        makeDense(src, tgt);
+        copy(src, tgt);
 
         // and checking
         BOOST_REQUIRE( checkEqual(make_value_coefficient_input_range(src), make_value_coefficient_input_range(tgt)) );

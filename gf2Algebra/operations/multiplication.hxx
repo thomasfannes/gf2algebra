@@ -4,10 +4,10 @@
 * the LICENSE file
 ********************************************************************/
 
-#ifndef GF2ALGEBRA_OPERATIONS_MULTIPLY_HXX
-#define GF2ALGEBRA_OPERATIONS_MULTIPLY_HXX
+#ifndef GF2ALGEBRA_OPERATIONS_MULTIPLICATION_HXX
+#define GF2ALGEBRA_OPERATIONS_MULTIPLICATION_HXX
 
-#include "multiply.hpp"
+#include "multiplication.hpp"
 #include "../iterator.hpp"
 #include "../internal/fwht.hpp"
 #include "../internal/densePolynomialIO.hpp"
@@ -189,96 +189,6 @@ void multiply(
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-template <typename RhsIndexMap>
-void multiply(const SparseRepresentation & lhs, const DenseRepresentation & rhs, SparseRepresentation & tgt, const RhsIndexMap & rhsIndexMap)
-{
-
-}
-
-template <typename LhsIndexMap>
-void multiply(const DenseRepresentation & lhs, const SparseRepresentation & rhs, SparseRepresentation & tgt, const LhsIndexMap & lhsIndexMap)
-{
-    internal::element_wise_multiply(
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
-                make_value_coefficient_input_range(rhs),
-                make_unordered_value_coefficient_output_iterator(tgt)
-                );
-}
-
-template <typename LhsIndexMap, typename RhsIndexMap>
-void multiply(const DenseRepresentation & lhs, const DenseRepresentation & rhs, SparseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap)
-{
-        internal::element_wise_multiply(
-                    make_value_coefficient_input_range(lhs, lhsIndexMap),
-                    make_value_coefficient_input_range(rhs, rhsIndexMap),
-                    make_unordered_value_coefficient_output_iterator(tgt)
-                    );
-}
-
-
-template <typename TgtIndexMap>
-void multiply(const SparseRepresentation & lhs, const SparseRepresentation & rhs, DenseRepresentation & tgt, const TgtIndexMap & tgtIndexMap)
-{
-    internal::element_wise_multiply(
-                make_value_coefficient_input_range(lhs),
-                make_value_coefficient_input_range(rhs),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
-                );
-}
-
-template <typename RhsIndexMap, typename TgtIndexMap>
-void multiply(const SparseRepresentation & lhs, const DenseRepresentation & rhs, DenseRepresentation & tgt, const RhsIndexMap & rhsIndexMap, const TgtIndexMap & tgtIndexMap)
-{
-    internal::element_wise_multiply(
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_value_coefficient_input_range(lhs),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
-                );
-}
-
-template <typename LhsIndexMap, typename TgtIndexMap>
-void multiply(const DenseRepresentation & lhs, const SparseRepresentation & rhs, DenseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const TgtIndexMap & tgtIndexMap)
-{
-    internal::element_wise_multiply(
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
-                make_value_coefficient_input_range(rhs),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
-                );
-}
-
-template <typename LhsIndexMap, typename RhsIndexMap, typename TgtIndexMap>
-void multiply(const DenseRepresentation & lhs, const DenseRepresentation & rhs, DenseRepresentation & tgt, const LhsIndexMap & lhsIndexMap, const RhsIndexMap & rhsIndexMap, const TgtIndexMap & tgtIndexMap)
-{
-    internal::element_wise_multiply(
-                make_value_coefficient_input_range(lhs, lhsIndexMap),
-                make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap)
-                );
-}
-
-
-
 inline
 void multiply_FFT(
         unsigned char noBits,
@@ -408,4 +318,4 @@ void multiply_FFT(
 } // namespace gf2Algebra
 
 
-#endif // GF2ALGEBRA_OPERATIONS_MULTIPLY_HXX
+#endif // GF2ALGEBRA_OPERATIONS_MULTIPLICATION_HXX
