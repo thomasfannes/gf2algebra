@@ -25,7 +25,7 @@ public:
     // let a and b be two elements of our algebra, V_a, V_b respectively be the sets of active bits in a and b.
     // if 2^(|V_a| + |V_b| - |V_a \cup V_b|) < n * |V_a \cup V_b|, then quadratic multiplication is used.
     // Otherwise the FFT is used. Note that if a or b are sparse, then the quadratic multiplication is used.
-    const static double DEFAULT_N = 56;
+    const static double DEFAULT_N = 50.67;
 
 
     explicit Algebra(double c = DEFAULT_C, double n = DEFAULT_N);
