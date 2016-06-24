@@ -4,16 +4,15 @@
 * the LICENSE file
 ********************************************************************/
 
-#ifndef UTIL_HPP
-#define UTIL_HPP
+#ifndef GF2ALGEBRA_GF2ALGEBRA_HPP
+#define GF2ALGEBRA_GF2ALGEBRA_HPP
 
-#include <gf2Algebra/ext/element.hpp>
+#include "config.hpp"
+#include "z2k.hpp"
+#include "dynamicElement.hpp"
 
-void initializeElement(
-        gf2Algebra::ext::Element & element,
-        const gf2Algebra::Bitset & activeBits,
-        std::size_t noElements
-        );
+namespace gf2Algebra {
 
+} // gf2Algebra namespace
 
-#endif // UTIL_HPP
+#endif // GF2ALGEBRA_GF2ALGEBRA_HPP

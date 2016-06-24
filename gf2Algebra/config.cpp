@@ -26,4 +26,10 @@ std::size_t getMaximalKValue()
     return minK;
 }
 
+bool is_contiguous(const Bitset & bitset)
+{
+    std::size_t mask = (1 << bitset.count()) - 1;
+    return bitset.to_ulong() == mask;
+}
+
 } // gf2Algebra namespace

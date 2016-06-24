@@ -51,12 +51,11 @@ public:
 	// swap function for efficient use in stl
     friend void swap(GF256 & lhs, GF256 & rhs)  { std::swap(lhs._m, rhs._m); }
 
-
-
 private:
     storage_type _m;
-
 };
+
+std::ostream & operator<<(std::ostream & stream, const GF256 & element);
 
 
 } // gf2Algebra namespace

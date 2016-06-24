@@ -115,6 +115,12 @@ std::string GF256::polyRepresentation() const
 	return s;
 }
 
+std::ostream & operator<<(std::ostream & stream, const GF256 & element)
+{
+    stream << element.polyRepresentation();
+    return stream;
+}
+
 
 } // gf2Algebra namespace
 

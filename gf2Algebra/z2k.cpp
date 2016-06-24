@@ -20,4 +20,10 @@ std::string Z2k::binaryRepresentation() const
     return std::bitset<sizeof(storage_type)*8>(val_).to_string();
 }
 
+std::ostream & operator<<(std::ostream & stream, const Z2k & value)
+{
+    stream << value.getValue();
+    return stream;
+}
+
 } // namespace gf2Algebra

@@ -5,9 +5,8 @@ namespace gf2Algebra {
 
 enum DynamicElementStorageType
 {
-    DenseStorage,
-    SemiDenseStorage,
-    SparseStorage
+    DenseStorage = 0,
+    SparseStorage = 1
 };
 
 } // gf2Algebra namespace

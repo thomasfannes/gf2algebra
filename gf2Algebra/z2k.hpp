@@ -27,6 +27,9 @@ public:
 
     Z2k operator*(const Z2k & rhs) const        { return Z2k(val_ ^ rhs.val_); }
     bool operator<(const Z2k & rhs) const       { return val_ < rhs.val_; }
+    bool operator>(const Z2k & rhs) const       { return val_ > rhs.val_; }
+    bool operator<=(const Z2k & rhs) const      { return val_ <= rhs.val_; }
+    bool operator>=(const Z2k & rhs) const      { return val_ >= rhs.val_; }
     bool operator==(const Z2k & rhs) const      { return val_ == rhs.val_; }
     bool operator!=(const Z2k & rhs) const      { return val_ != rhs.val_; }
 
@@ -41,6 +44,8 @@ private:
 
     storage_type val_;
 };
+
+std::ostream & operator<<(std::ostream & stream, const Z2k & value);
 
 } // namespace gf2Algebra
 

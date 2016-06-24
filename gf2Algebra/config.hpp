@@ -8,7 +8,9 @@
 #define GF2ALGEBRA_CONFIG_HPP
 
 #include <utility>
+#include <bitset>
 #include "gf256.hpp"
+
 
 namespace gf2Algebra {
 
@@ -60,7 +62,12 @@ static const std::size_t MAX_K_VALUE = 31;
 
 std::size_t getMaximalKValue();
 
+typedef std::bitset<MAX_K_VALUE> Bitset;
+
+bool is_contiguous(const Bitset & bitset);
+
 } // gf2Algebra namespace
 
+#include "z2k.hpp"
 
 #endif // GF2ALGEBRA_CONFIG_HPP
