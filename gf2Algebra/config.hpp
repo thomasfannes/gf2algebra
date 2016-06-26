@@ -9,6 +9,7 @@
 
 #include <utility>
 #include <bitset>
+#include <map>
 #include "gf256.hpp"
 
 
@@ -63,6 +64,7 @@ static const std::size_t MAX_K_VALUE = 31;
 std::size_t getMaximalKValue();
 
 typedef std::bitset<MAX_K_VALUE> Bitset;
+typedef std::map<unsigned char, unsigned char> Bitmap;
 
 bool is_contiguous(const Bitset & bitset);
 

@@ -8,15 +8,58 @@
 #include "../multiplication.hpp"
 #include "../equal.hpp"
 #include "../streamify.hpp"
+#include "../groupTransformation.hpp"
 
 #include "../subsetIndexMap.hpp"
 #include "../identityIndexMap.hpp"
 
+
 namespace gf2Algebra {
 namespace ext {
 
-
 namespace internal {
+
+template <typename IndexMap1, typename IndexMap2>
+struct change_dimensionality_visit : public boost::static_visitor<>
+{
+    change_dimensionality_visit(const Bitset & srcActiveBits, const Bitset & tgtActiveBits, const Bitmap & srcToTgtMap)
+        : srcIndexMap(srcActiveBits),
+          tgtIndexMap(tgtActiveBits),
+          transformer(srcToTgtMap)
+    {
+    }
+
+    template <typename T1, typename T2>
+    void operator()(const T1 & src, T2 & tgt) const
+    {
+        change_dimensionality(src, tgt, srcIndexMap, tgtIndexMap, transformer);
+    }
+
+    IndexMap1 srcIndexMap;
+    IndexMap2 tgtIndexMap;
+    BitMapTransformer transformer;
+};
+
+template <typename IndexMap1, typename IndexMap2>
+struct aggregate_bits_visit : public boost::static_visitor<>
+{
+    aggregate_bits_visit(const Bitset & srcActiveBits, const Bitset & tgtActiveBits, Z2k::storage_type nMask)
+        : srcIndexMap(srcActiveBits),
+          tgtIndexMap(tgtActiveBits),
+          mask(nMask)
+    {
+    }
+
+    template <typename T1, typename T2>
+    void operator()(const T1 & src, T2 & tgt) const
+    {
+        aggregate_bits(src, tgt, srcIndexMap, tgtIndexMap, mask);
+    }
+
+    IndexMap1 srcIndexMap;
+    IndexMap2 tgtIndexMap;
+    Z2k::storage_type mask;
+};
 
 struct set_coefficient_visit : public boost::static_visitor<>
 {

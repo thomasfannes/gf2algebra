@@ -33,9 +33,11 @@ public:
 
 	// addition assignment
     GF256 & operator+=(const GF256 & rhs)       { _m ^= rhs._m; return *this; }
+    GF256 & operator-=(const GF256 & rhs)       { _m ^= rhs._m; return *this; }
 
 	// addition and multiplication
     GF256 operator+(const GF256 & rhs) const    { return GF256(_m ^ rhs._m); }
+    GF256 operator-(const GF256 & rhs) const    { return GF256(_m ^ rhs._m); }
     GF256 operator*(const GF256 & rhs) const;
 
 	// equality

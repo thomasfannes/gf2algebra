@@ -207,7 +207,7 @@ void multiply_FFT(
                 noBits,
                 make_value_coefficient_input_range(lhs, lhsIndexMap),
                 make_value_coefficient_input_range(rhs, rhsIndexMap),
-                make_ordered_value_coefficient_output_iterator(tgt, tgtIndexMap, mask)
+                make_unordered_value_coefficient_output_iterator(tgt, tgtIndexMap, mask)
                 );
 }
 

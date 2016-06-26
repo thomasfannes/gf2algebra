@@ -3,6 +3,12 @@
 
 namespace gf2Algebra {
 
+/**
+ * @brief The DynamicElementStorageType enum defines the storage type that is used
+ *
+ * DenseStorage implies many non-zero coefficients
+ * SparseStorage implies many zero coefficients
+ */
 enum DynamicElementStorageType
 {
     DenseStorage = 0,

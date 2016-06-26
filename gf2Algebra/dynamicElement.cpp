@@ -42,7 +42,11 @@ DynamicElement::DynamicElement()
 DynamicElement::DynamicElement(const Bitset & activeBits, DynamicElementStorageType storage)
     : d_(new Impl(activeBits, storage))
 {
+}
 
+DynamicElement::DynamicElement(unsigned char k, DynamicElementStorageType storage)
+    : d_(new Impl(Bitset((1<<k)-1), storage))
+{
 }
 
 DynamicElement::DynamicElement(const DynamicElement & element)
@@ -66,6 +70,22 @@ DynamicElement & DynamicElement::operator+=(const DynamicElement & rhs)
 }
 
 DynamicElement DynamicElement::operator+(const DynamicElement & rhs) const
+{
+    DynamicElement result;
+    algebra().add(d_->element, rhs.d_->element, result.d_->element);
+
+    return result;
+}
+
+DynamicElement & DynamicElement::operator-=(const DynamicElement & rhs)
+{
+    makeUniqueIfNecessary();
+    algebra().addAssign(d_->element, rhs.d_->element);
+
+    return *this;
+}
+
+DynamicElement DynamicElement::operator-(const DynamicElement & rhs) const
 {
     DynamicElement result;
     algebra().add(d_->element, rhs.d_->element, result.d_->element);
@@ -145,6 +165,34 @@ void DynamicElement::makeUniqueIfNecessary()
         return;
 
     d_ = boost::shared_ptr<Impl>(new Impl(d_->element));
+}
+
+
+// bit transformation functions
+void DynamicElement::aggregateBits(const Bitset & bitsToKeep, DynamicElementStorageType storageType)
+{
+    if(d_.unique())
+        d_->element.aggregateBits(bitsToKeep, storageType);
+    else
+        d_ = boost::shared_ptr<Impl>(new Impl(ext::Element(d_->element, bitsToKeep, storageType)));
+}
+
+void DynamicElement::aggregateBits(const Bitset & bitsToKeep)
+{
+    aggregateBits(bitsToKeep, storageType());
+}
+
+void DynamicElement::changeDimensionality(const Bitmap & srcToTgtMap, DynamicElementStorageType storageType)
+{
+    if(d_.unique())
+        d_->element.changeDimensionality(srcToTgtMap, storageType);
+    else
+        d_ = boost::shared_ptr<Impl>(new Impl(ext::Element(d_->element, srcToTgtMap, storageType)));
+}
+
+void DynamicElement::changeDimensionality(const Bitmap & srcToTgtMap)
+{
+    changeDimensionality(srcToTgtMap, storageType());
 }
 
 void swap(DynamicElement & lhs, DynamicElement & rhs)

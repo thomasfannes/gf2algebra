@@ -67,6 +67,26 @@ CDEF::SparseRepresentationUnorderedAdder(SparseRepresentation & x, const IndexMa
 }
 
 TDEF
+CDEF::SparseRepresentationUnorderedAdder(const SparseRepresentationUnorderedAdder & other)
+    : container(other.container),
+      finished(true),
+      indexMap(other.indexMap)
+{
+}
+
+TDEF
+CDEF & CDEF::operator=(const CDEF & other)
+{
+    if(this == &other)
+        return;
+
+    SparseRepresentationUnorderedAdder tmp(other);
+    swap(tmp, *this);
+
+    return *this;
+}
+
+TDEF
 CDEF::~SparseRepresentationUnorderedAdder()
 {
     if(!finished)
@@ -111,6 +131,17 @@ void CDEF::flush()
     container->erase(writeIt, container->end());
     temporary.clear();
     finished = true;
+}
+
+TDEF
+void swap(CDEF & lhs, CDEF & rhs)
+{
+    using std::swap;
+
+    swap(lhs.container, rhs.container);
+    swap(lhs.temporary, rhs.temporary);
+    swap(lhs.finished, rhs.finished);
+    swap(lhs.indexMap, rhs.indexMap);
 }
 
 #undef TDEF

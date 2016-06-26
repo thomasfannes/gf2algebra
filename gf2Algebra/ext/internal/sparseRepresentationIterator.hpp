@@ -56,12 +56,18 @@ template <typename IndexMap>
 struct SparseRepresentationUnorderedAdder
 {
     SparseRepresentationUnorderedAdder(SparseRepresentation & x, const IndexMap & idxMap);
+    SparseRepresentationUnorderedAdder(const SparseRepresentationUnorderedAdder & other);
     ~SparseRepresentationUnorderedAdder();
+
+    SparseRepresentationUnorderedAdder & operator=(const SparseRepresentationUnorderedAdder & other);
 
     void operator()(const ValueCoefficientPair & vcp) const;
     void flush();
 
 protected:
+    template <typename IM>
+    friend void swap(SparseRepresentationUnorderedAdder<IM> & lhs, SparseRepresentationUnorderedAdder<IM> & rhs);
+
     SparseRepresentation * container;
     mutable SparseRepresentation temporary;
     mutable bool finished;

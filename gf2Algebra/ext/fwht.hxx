@@ -43,6 +43,8 @@ void fwht_radix4(std::vector<DataType> & elements, std::size_t firstPosition, st
     elements[p4] = cp - dp;
 }
 
+
+
 bool isPowerOfTwo(std::size_t number);
 std::size_t iLog2(std::size_t value);
 

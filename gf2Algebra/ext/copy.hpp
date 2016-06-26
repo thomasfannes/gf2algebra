@@ -8,7 +8,6 @@
 #define GF2ALGEBRA_EXT_COPY_HPP
 
 #include <boost/utility/enable_if.hpp>
-
 #include "representation.hpp"
 
 namespace gf2Algebra {

@@ -9,6 +9,7 @@ set(
   z2k.cpp
   dynamicElement.hpp
   dynamicElement.cpp
+  dynamicElementStorageType.hpp
 
 
   ext/representation.hpp
@@ -50,6 +51,9 @@ set(
   ext/additionAssignment.hxx
   ext/multiplication.hpp
   ext/multiplication.hxx
+  ext/groupTransformation.cpp
+  ext/groupTransformation.hpp
+  ext/groupTransformation.hxx
   ext/copy.hpp
   ext/copy.hxx
   ext/streamify.hpp

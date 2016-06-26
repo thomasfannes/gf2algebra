@@ -29,8 +29,6 @@ struct representation_iterator_traits<SparseRepresentation, IndexMap>
 
     typedef boost::function_output_iterator<ordered_adder >                                             ordered_value_coefficient_output_iterator;
     typedef boost::function_output_iterator<unordered_adder>                                            unordered_value_coefficient_output_iterator;
-
-    typedef boost::function_output_iterator< internal::Z2kMaskFunctor<ordered_adder > >                 masked_ordered_value_coefficient_output_iterator;
     typedef boost::function_output_iterator< internal::Z2kMaskFunctor<unordered_adder > >               masked_unordered_value_coefficient_output_iterator;
 };
 
@@ -45,8 +43,6 @@ struct representation_iterator_traits<DenseRepresentation, IndexMap>
 
     typedef boost::function_output_iterator<ordered_adder >                                             ordered_value_coefficient_output_iterator;
     typedef boost::function_output_iterator<unordered_adder>                                            unordered_value_coefficient_output_iterator;
-
-    typedef boost::function_output_iterator< internal::Z2kMaskFunctor<ordered_adder > >                 masked_ordered_value_coefficient_output_iterator;
     typedef boost::function_output_iterator< internal::Z2kMaskFunctor<unordered_adder > >               masked_unordered_value_coefficient_output_iterator;
 };
 
@@ -111,20 +107,6 @@ make_unordered_value_coefficient_output_iterator(DenseRepresentation &representa
 
 
 
-
-
-template <typename IndexMap>
-typename representation_iterator_traits<SparseRepresentation, IndexMap>::masked_ordered_value_coefficient_output_iterator
-make_ordered_value_coefficient_output_iterator(SparseRepresentation &representation, const IndexMap &indexMap, Z2k::storage_type mask)
-{
-    return boost::make_function_output_iterator(
-                internal::make_mask_function(
-                    mask,
-                    internal::SparseRepresentationOrderedAdder<IndexMap>(representation, indexMap)
-                    )
-                );
-}
-
 template <typename IndexMap>
 typename representation_iterator_traits<SparseRepresentation, IndexMap>::masked_unordered_value_coefficient_output_iterator
 make_unordered_value_coefficient_output_iterator(SparseRepresentation &representation, const IndexMap &indexMap, Z2k::storage_type mask)
@@ -136,20 +118,6 @@ make_unordered_value_coefficient_output_iterator(SparseRepresentation &represent
                     )
                 );
 }
-
-
-template <typename IndexMap>
-typename representation_iterator_traits<DenseRepresentation, IndexMap>::masked_ordered_value_coefficient_output_iterator
-make_ordered_value_coefficient_output_iterator(DenseRepresentation &representation, const IndexMap &indexMap, Z2k::storage_type mask)
-{
-    return boost::make_function_output_iterator(
-                internal::make_mask_function(
-                    mask,
-                    internal::DenseRepresentationAdder<IndexMap>(representation, indexMap)
-                    )
-                );
-}
-
 
 template <typename IndexMap>
 typename representation_iterator_traits<DenseRepresentation, IndexMap>::masked_unordered_value_coefficient_output_iterator

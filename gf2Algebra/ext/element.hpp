@@ -25,7 +25,12 @@ public:
 
     Element();
     Element(const Bitset & activeBits, DynamicElementStorageType type);
+    Element(const Element & other);
     Element(const Element & other, DynamicElementStorageType storageType);
+    Element(const Element & other, const Bitset & bitsToKeep);
+    Element(const Element & other, const Bitset & bitsToKeep, DynamicElementStorageType storageType);
+    Element(const Element & other, const Bitmap & srcToTgtMap);
+    Element(const Element & other, const Bitmap & srcToTgtMap, DynamicElementStorageType storageType);
 
     bool operator==(const Element & rhs) const;
     bool operator!=(const Element & rhs) const;
@@ -43,6 +48,12 @@ public:
     GaloisField coefficient(const Z2k & value) const;
     bool valueInActiveBits(const Z2k & value) const;
 
+    // bit transformation functions
+    void aggregateBits(const Bitset & bitsToKeep, DynamicElementStorageType storageType);
+    void aggregateBits(const Bitset & bitsToKeep);
+    void changeDimensionality(const Bitmap & srcToTgtMap, DynamicElementStorageType storageType);
+    void changeDimensionality(const Bitmap & srcToTgtMap);
+
 
     // type functions
     DynamicElementStorageType type() const;
@@ -51,6 +62,9 @@ public:
 
 
 private:
+    void int_aggregateBits(const variant_type & src, variant_type & tgt, const Bitset & srcBitset, Bitset & tgtBitset, const Bitset &bitsToKeep, DynamicElementStorageType storageType) const;
+    void int_changeDimensionality(const variant_type & src, variant_type & tgt, const Bitset & srcBitset, Bitset & tgtBitset, const Bitmap & srcToTgtMap, DynamicElementStorageType storageType) const;
+
     static void reset(variant_type & value, DynamicElementStorageType type, const Bitset & activeBits);
     friend void swap(Element & el1, Element & el2);
 

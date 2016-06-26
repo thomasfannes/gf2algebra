@@ -8,6 +8,15 @@
 
 namespace gf2Algebra {
 
+/**
+ * @brief The DynamicElement class represents an element from the Gf(2^8)[Z_2^k] group algebra,
+ * together with the addition and multiplication operation.
+ *
+ * An element can be represented in mainly two different ways:
+ *  - A dense representation of the 2^k coefficients
+ *  - A sparse representation of the coefficients together with their value
+ *  - A dense representation of the 2^k' coefficients, for k' < k.
+ */
 class DynamicElement
 {
     class Impl;
@@ -16,12 +25,15 @@ public:
     // constructor
     DynamicElement();
     explicit DynamicElement(const Bitset & activeBits, DynamicElementStorageType storage = SparseStorage);
+    explicit DynamicElement(unsigned char k, DynamicElementStorageType storage = SparseStorage);
     DynamicElement(const DynamicElement & element);
 
     // operators
     DynamicElement & operator=(const DynamicElement & rhs);
     DynamicElement & operator+=(const DynamicElement & rhs);
+    DynamicElement & operator-=(const DynamicElement & rhs);
     DynamicElement operator+(const DynamicElement & rhs) const;
+    DynamicElement operator-(const DynamicElement & rhs) const;
     DynamicElement operator*(const DynamicElement & rhs) const;
     DynamicElement multiply(const DynamicElement & rhs, const Bitset & targetBits) const;
     bool operator==(const DynamicElement & rhs) const;
@@ -38,6 +50,12 @@ public:
     void reset();
     DynamicElementStorageType storageType() const;
     void changeStorageType(DynamicElementStorageType newType);
+
+    // bit transformation functions
+    void aggregateBits(const Bitset & bitsToKeep, DynamicElementStorageType storageType);
+    void aggregateBits(const Bitset & bitsToKeep);
+    void changeDimensionality(const Bitmap & srcToTgtMap, DynamicElementStorageType storageType);
+    void changeDimensionality(const Bitmap & srcToTgtMap);
 
 
 private:
